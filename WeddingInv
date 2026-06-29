@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>Mathu & Kabilan Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --saffron:#C8601A;
+    --gold:#B8860B;
+    --deep-gold:#8B6914;
+    --cream:#FDF6E3;
+    --warm-cream:#FAF0D7;
+    --teak:#3D1F0A;
+    --lotus:#C94060;
+    --lotus-light:#F4E0E6;
+    --parchment:#F5E6C8;
+    --border-ornate:#C9952A;
+  }
+  body{
+    font-family:'Lato',sans-serif;
+    background:linear-gradient(160deg,#2C1206 0%,#4A1E08 40%,#3D1A06 100%);
+    min-height:100vh;
+    color:var(--teak);
+    padding: 0;
+    overflow-x: hidden;
+  }
+  .invite-wrap{
+    max-width:680px;
+    margin:0 auto;
+    position:relative;
+    width: 100%;
+  }
+
+  /* ── HERO ── */
+  .hero{
+    background:linear-gradient(180deg,#1A0A02 0%,#3D1F0A 60%,#2C1206 100%);
+    padding:2rem 1rem 1.5rem;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;inset:0;
+    background:radial-gradient(ellipse 60% 40% at 50% 30%,rgba(200,96,26,0.18),transparent);
+    pointer-events:none;
+  }
+  
+  .couple-illustration-container {
+    max-width: 92%;
+    margin: 0 auto 1.5rem;
+    border: 3px solid var(--border-ornate);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    overflow: hidden;
+    line-height: 0;
+    opacity: 0;
+    animation: image-fade-in 1.2s ease forwards 0.2s;
+  }
+  .couple-illustration {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  @keyframes image-fade-in {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .divider-line{
+    width:60%;margin:0 auto;
+    border:none;border-top:1px solid var(--border-ornate);
+    opacity:0.5;
+  }
+  .hero-sub{
+    font-family:'Lato',sans-serif;
+    letter-spacing:0.25em;
+    font-size:10px;
+    color:rgba(200,150,80,0.7);
+    text-transform:uppercase;
+    margin-bottom:0.75rem;
+  }
+  .couple-names{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2rem,7vw,3.2rem);
+    font-weight:300;
+    color:var(--parchment);
+    line-height:1.15;
+    letter-spacing:0.02em;
+  }
+  .couple-names .amp{
+    font-style:italic;
+    color:var(--border-ornate);
+    font-size:0.7em;
+    display:block;
+    margin:0.1em 0;
+  }
+  .hero-date{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem;
+    color:rgba(200,150,80,0.85);
+    margin-top:0.75rem;
+    font-style:italic;
+    letter-spacing:0.05em;
+  }
+  .hero-tagline{
+    font-size:0.78rem;
+    color:rgba(200,150,80,0.55);
+    margin-top:0.4rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs{
+    display:flex;
+    background:#1A0A02;
+    border-top:1px solid rgba(200,150,40,0.25);
+    border-bottom:1px solid rgba(200,150,40,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-tab{
+    flex:1;
+    padding:0.75rem 0.25rem;
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-family:'Lato',sans-serif;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:rgba(200,150,80,0.55);
+    transition:color 0.2s,background 0.2s;
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    border-right:1px solid rgba(200,150,40,0.15);
+  }
+  .nav-tab:last-child{border-right:none}
+  .nav-tab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5}
+  .nav-tab.active{color:var(--border-ornate);background:rgba(200,130,30,0.08)}
+  .nav-tab:hover:not(.active){color:rgba(200,150,80,0.8)}
+
+  /* ── PANELS ── */
+  .panel{display:none;animation:fade-up 0.4s ease}
+  .panel.active{display:block}
+  @keyframes fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── VENUE PANEL ── */
+  .venue-panel{background:var(--warm-cream);padding:1.5rem 1rem}
+  .section-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.6rem;
+    font-weight:400;
+    color:var(--teak);
+    text-align:center;
+    margin-bottom:0.25rem;
+  }
+  .section-sub{
+    text-align:center;
+    font-size:0.75rem;
+    color:rgba(61,31,10,0.5);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:1.5rem;
+  }
+  .venue-cards{display:flex;flex-direction:column;gap:1rem}
+  .venue-card{
+    background:#fff;
+    border:1px solid rgba(185,134,11,0.25);
+    border-radius:8px;
+    overflow:hidden;
+    display:flex;
+    align-items:stretch;
+  }
+  .venue-accent{
+    width:5px;
+    flex-shrink:0;
+  }
+  .venue-accent.temple{background:linear-gradient(180deg,#C94060,#8B3050)}
+  .venue-accent.mandap{background:linear-gradient(180deg,#C8601A,#8B3A0B)}
+  .venue-body{padding:0.9rem 1rem;flex:1}
+  .venue-type{
+    font-size:9px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(61,31,10,0.45);
+    margin-bottom:0.2rem;
+  }
+  .venue-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;
+    font-weight:500;
+    color:var(--teak);
+    margin-bottom:0.25rem;
+  }
+  .venue-address{
+    font-size:0.78rem;
+    color:rgba(61,31,10,0.65);
+    line-height:1.5;
+    margin-bottom:0.6rem;
+  }
+  .venue-time{
+    font-size:0.72rem;
+    color:var(--saffron);
+    font-weight:700;
+    letter-spacing:0.05em;
+    margin-bottom:0.7rem;
+  }
+  
+  .map-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:0.5rem 1rem;
+    border-radius:4px;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    cursor:pointer;
+    transition:opacity 0.2s;
+  }
+  .map-btn:hover{opacity:0.85}
+  .map-btn.temple{background:#C94060;color:#fff}
+  .map-btn.mandap{background:#C8601A;color:#fff}
+  .map-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+  /* ── MENU PANEL ── */
+  .menu-panel{background:var(--warm-cream);padding:1.5rem 1rem}
+  .menu-tabs{
+    display:flex;
+    gap:0;
+    border:1px solid rgba(185,134,11,0.3);
+    border-radius:6px;
+    overflow:hidden;
+    margin-bottom:1.5rem;
+  }
+  .menu-tab{
+    flex:1;
+    padding:0.6rem;
+    border:none;
+    background:transparent;
+    font-family:'Lato',sans-serif;
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    cursor:pointer;
+    color:rgba(61,31,10,0.5);
+    transition:background 0.2s,color 0.2s;
+  }
+  .menu-tab.active{background:var(--teak);color:var(--parchment)}
+  .menu-section{display:none}
+  .menu-section.active{display:block}
+  .menu-intro{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1rem;
+    font-style:italic;
+    color:rgba(61,31,10,0.55);
+    text-align:center;
+    margin-bottom:1.2rem;
+  }
+  .dish-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:0.75rem}
+  .dish-card{
+    background:#fff;
+    border:1px solid rgba(185,134,11,0.2);
+    border-radius:8px;
+    padding:0.85rem;
+    text-align:center;
+    opacity:0;
+    transform:translateY(10px);
+    animation:dish-in 0.5s ease forwards;
+  }
+  .dish-card:nth-child(1){animation-delay:0.05s}
+  .dish-card:nth-child(2){animation-delay:0.1s}
+  .dish-card:nth-child(3){animation-delay:0.15s}
+  .dish-card:nth-child(4){animation-delay:0.2s}
+  .dish-card:nth-child(5){animation-delay:0.25s}
+  .dish-card:nth-child(6){animation-delay:0.3s}
+  .dish-card:nth-child(7){animation-delay:0.35s}
+  .dish-card:nth-child(8){animation-delay:0.4s}
+  @keyframes dish-in{to{opacity:1;transform:translateY(0)}}
+  .dish-emoji{font-size:1.6rem;margin-bottom:0.35rem;display:block}
+  .dish-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1rem;
+    font-weight:500;
+    color:var(--teak);
+    display:block;
+    margin-bottom:0.15rem;
+  }
+  .dish-desc{font-size:0.68rem;color:rgba(61,31,10,0.5);line-height:1.4}
+  .menu-note{
+    text-align:center;
+    font-size:0.72rem;
+    color:rgba(61,31,10,0.4);
+    margin-top:1.2rem;
+    font-style:italic;
+  }
+
+  /* ── PHOTOS PANEL ── */
+  .photos-panel{background:var(--warm-cream);padding:1.5rem 1rem}
+  .upload-zone{
+    border:1.5px dashed rgba(185,134,11,0.45);
+    border-radius:10px;
+    padding:2rem 1rem;
+    text-align:center;
+    background:rgba(255,255,255,0.5);
+    cursor:pointer;
+    transition:background 0.2s,border-color 0.2s;
+    margin-bottom:1rem;
+  }
+  .upload-zone:hover{background:rgba(255,255,255,0.8);border-color:rgba(185,134,11,0.7)}
+  .upload-zone.drag-over{background:rgba(200,96,26,0.06);border-color:var(--saffron)}
+  .upload-icon{
+    width:44px;height:44px;
+    margin:0 auto 0.75rem;
+    background:rgba(200,130,30,0.12);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold);
+  }
+  .upload-icon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5}
+  .upload-label{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem;
+    color:var(--teak);
+    margin-bottom:0.3rem;
+  }
+  .upload-hint{font-size:0.72rem;color:rgba(61,31,10,0.45)}
+  #file-input{display:none}
+  .upload-btn{
+    display:inline-block;
+    margin-top:0.9rem;
+    padding:0.5rem 1.4rem;
+    background:var(--teak);
+    color:var(--parchment);
+    border:none;
+    border-radius:4px;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:opacity 0.2s;
+  }
+  .upload-btn:hover{opacity:0.8}
+  .upload-progress{
+    display:none;
+    margin:1rem 0;
+  }
+  .progress-bar-wrap{
+    background:rgba(185,134,11,0.15);
+    border-radius:4px;
+    height:6px;
+    overflow:hidden;
+    margin-bottom:0.4rem;
+  }
+  .progress-bar-fill{
+    height:100%;
+    background:linear-gradient(90deg,var(--saffron),var(--gold));
+    border-radius:4px;
+    width:0%;
+    transition:width 0.3s ease;
+  }
+  .progress-label{font-size:0.72rem;color:rgba(61,31,10,0.55);text-align:center}
+  .upload-success{
+    display:none;
+    text-align:center;
+    padding:1rem;
+    background:rgba(40,120,60,0.08);
+    border:1px solid rgba(40,120,60,0.2);
+    border-radius:8px;
+    margin-top:0.75rem;
+  }
+  .upload-success svg{color:#2E7D42}
+  .success-text{font-family:'Cormorant Garamond',serif;font-size:1rem;color:#2E7D42;margin-top:0.4rem}
+  .success-sub{font-size:0.72rem;color:rgba(46,125,66,0.7);margin-top:0.2rem}
+  .uploaded-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    margin-top:1rem;
+  }
+  .uploaded-thumb{
+    aspect-ratio:1;
+    border-radius:5px;
+    overflow:hidden;
+    border:1px solid rgba(185,134,11,0.2);
+  }
+  .uploaded-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .cloud-note{
+    font-size:0.7rem;
+    color:rgba(61,31,10,0.4);
+    text-align:center;
+    margin-top:0.75rem;
+    font-style:italic;
+    line-height:1.5;
+  }
+
+  /* ── FOOTER ── */
+  .footer{
+    background:#1A0A02;
+    padding:1.5rem 1rem;
+    text-align:center;
+  }
+  .footer-text{
+    font-family:'Cormorant Garamond',serif;
+    font-size:0.85rem;
+    color:rgba(200,150,80,0.45);
+    font-style:italic;
+  }
+
+  @media(min-width:481px) and (max-width:1024px) {
+    .invite-wrap { max-width: 90%; margin: 2rem auto; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+    .hero { padding: 3rem 2rem 2.5rem; }
+    .couple-illustration-container { max-width: 80%; }
+    .dish-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="invite-wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="couple-illustration-container">
+      <img src="https://lh3.googleusercontent.com/d/1b54V7hZwZxO05Bdva_BRdlgH5_mRwl_8" alt="Mathu and Kabilan Illustration" class="couple-illustration">
+    </div>
+    <p class="hero-sub">With blessings of the divine</p>
+    <div class="couple-names">
+      Mathu<span class="amp">&amp;</span>Kabilan
+    </div>
+    <p class="hero-date">Sunday, August 23, 2026</p>
+    <p class="hero-tagline">Kalyanam · Madurai</p>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav-tabs" role="tablist">
+    <button class="nav-tab active" onclick="showPanel('venue',this)" role="tab" aria-selected="true">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Venue
+    </button>
+    <button class="nav-tab" onclick="showPanel('menu',this)" role="tab">
+      <svg viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>
+      Menu
+    </button>
+    <button class="nav-tab" onclick="showPanel('photos',this)" role="tab">
+      <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+      Photos
+    </button>
+  </nav>
+
+  <!-- VENUE PANEL -->
+  <div id="panel-venue" class="panel venue-panel active">
+    <h2 class="section-title">Celebrations</h2>
+    <p class="section-sub">In Madurai</p>
+    <div class="venue-cards">
+
+      <div class="venue-card">
+        <div class="venue-accent temple"></div>
+        <div class="venue-body">
+          <p class="venue-type">Temple Ceremony</p>
+          <p class="venue-name">Arulmigu Park Sri Murugan Temple</p>
+          <p class="venue-address">Collector Office Rd, near Gandhi Museum,<br>Alwarpuram, Madurai, Tamil Nadu 625020</p>
+          <p class="venue-time">Muhurtham Ceremony</p>
+          <a href="https://maps.google.com/?q=Arulmigu+Park+Sri+Murugan+Temple+Madurai" target="_blank" rel="noopener noreferrer" class="map-btn temple">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="white" stroke="none"/></svg>
+            Open Location Map
+          </a>
+        </div>
+      </div>
+
+      <div class="venue-card">
+        <div class="venue-accent mandap"></div>
+        <div class="venue-body">
+          <p class="venue-type">Wedding Hall Reception</p>
+          <p class="venue-name">Templecity Greenpark Mahal</p>
+          <p class="venue-address">Behind Madras Bench Madurai High Court,<br>Ulanganeri, Otthakadai, Madurai, Tamil Nadu 625023</p>
+          <p class="venue-time">Feast &amp; Celebrations</p>
+          <a href="https://maps.google.com/?q=Templecity+Greenpark+Mahal+Madurai" target="_blank" rel="noopener noreferrer" class="map-btn mandap">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="white" stroke="none"/></svg>
+            Open Wedding Hall Map
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MENU PANEL -->
+  <div id="panel-menu" class="panel menu-panel">
+    <h2 class="section-title">The Feast</h2>
+    <p class="section-sub">Traditional Saapadu</p>
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="showMenu('breakfast',this)">Breakfast</button>
+      <button class="menu-tab" onclick="showMenu('lunch',this)">Lunch</button>
+    </div>
+
+    <div id="menu-breakfast" class="menu-section active">
+      <p class="menu-intro">Served at the venue</p>
+      <div class="dish-grid">
+        <div class="dish-card"><span class="dish-emoji">🍚</span><span class="dish-name">Idli</span><span class="dish-desc">Soft steamed rice cakes with sambar &amp; chutneys</span></div>
+        <div class="dish-card"><span class="dish-emoji">🥞</span><span class="dish-name">Dosai</span><span class="dish-desc">Crisp golden crepe, coconut chutney</span></div>
+        <div class="dish-card"><span class="dish-emoji">🍩</span><span class="dish-name">Medu Vada</span><span class="dish-desc">Lentil fritters, hot sambar dip</span></div>
+        <div class="dish-card"><span class="dish-emoji">🥘</span><span class="dish-name">Pongal</span><span class="dish-desc">Spiced rice &amp; lentils, traditional style</span></div>
+        <div class="dish-card"><span class="dish-emoji">🧋</span><span class="dish-name">Filter Coffee</span><span class="dish-desc">Madurai's strong decoction brew</span></div>
+      </div>
+    </div>
+
+    <div id="menu-lunch" class="menu-section">
+      <p class="menu-intro">Grand saapadu served on banana leaf</p>
+      <div class="dish-grid">
+        <div class="dish-card"><span class="dish-emoji">🌿</span><span class="dish-name">Banana Leaf Rice</span><span class="dish-desc">Rice with ghee, pickle &amp; pappad</span></div>
+        <div class="dish-card"><span class="dish-emoji">🍛</span><span class="dish-name">Sambar</span><span class="dish-desc">Tamarind vegetable lentil stew</span></div>
+        <div class="dish-card"><span class="dish-emoji">🥣</span><span class="dish-name">Rasam</span><span class="dish-desc">Pepper &amp; tomato thin broth</span></div>
+        <div class="dish-card"><span class="dish-emoji">🥗</span><span class="dish-name">Kootu &amp; Poriyal</span><span class="dish-desc">Seasonal vegetable side dishes</span></div>
+        <div class="dish-card"><span class="dish-emoji">🍮</span><span class="dish-name">Payasam</span><span class="dish-desc">Traditional sweet dessert kheer</span></div>
+        <div class="dish-card"><span class="dish-emoji">🍧</span><span class="dish-name">Jigarthanda</span><span class="dish-desc">Madurai's iconic milk dessert</span></div>
+      </div>
+    </div>
+
+    <p class="menu-note">Pure vegetarian traditional menu</p>
+  </div>
+
+  <!-- PHOTOS PANEL -->
+  <div id="panel-photos" class="panel photos-panel">
+    <h2 class="section-title">Share Your Moments</h2>
+    <p class="section-sub">Upload photos directly to our wedding album</p>
+
+    <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </div>
+      <p class="upload-label">Drop your photos here</p>
+      <p class="upload-hint">JPG, PNG, HEIC — up to 10 MB each</p>
+      <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('file-input').click()">Choose photos</button>
+    </div>
+    <input type="file" id="file-input" accept="image/*" multiple>
+
+    <div class="upload-progress" id="upload-progress">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
+      <p class="progress-label" id="progress-label">Uploading…</p>
+    </div>
+
+    <div class="upload-success" id="upload-success">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#2E7D42;margin:0 auto;display:block"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+      <p class="success-text">Photo saved successfully!</p>
+      <p class="success-sub" id="success-note">Uploaded directly to the Google Drive folder.</p>
+    </div>
+
+    <div class="uploaded-grid" id="uploaded-grid"></div>
+
+    <p class="cloud-note">
+      Your submitted files will be transferred straight to the couple's private <strong>Google Drive Album</strong>.<br>
+      <span style="font-size:0.68rem;color:rgba(61,31,10,0.5)">Setup Tip: Link this client side handler to your custom Google Apps Script Web App Endpoint URL to receive file submissions directly.</span>
+    </p>
+  </div>
+
+  <div class="footer">
+    <p class="footer-text">Vaazhga Valamudan · வாழ்க வளமுடன்</p>
+  </div>
+</div>
+
+<script>
+  const GOOGLE_DRIVE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyU17QNGBLrQU1cgF5PVOhTgp-ielJLEaMatpCDS_ZInzjkrzDZQjmGBI4cmTZA3PvjqA/exec';
+
+  function showPanel(id, btn){
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('panel-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function showMenu(id, btn){
+    document.querySelectorAll('.menu-section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('menu-'+id).classList.add('active');
+    btn.classList.add('active');
+    document.querySelectorAll('#menu-'+id+' .dish-card').forEach((c,i)=>{
+      c.style.animation='none';
+      c.offsetHeight;
+      c.style.animation='dish-in 0.5s ease forwards '+(i*0.06)+'s';
+    });
+  }
+
+  const dropZone = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('file-input');
+
+  dropZone.addEventListener('dragover', e=>{e.preventDefault();dropZone.classList.add('drag-over')});
+  dropZone.addEventListener('dragleave', ()=>dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e=>{
+    e.preventDefault();dropZone.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener('change', ()=>handleFiles(fileInput.files));
+
+  async function handleFiles(files){
+    for(const file of files){
+      await uploadFile(file);
+    }
+  }
+
+  async function uploadFile(file){
+    const prog = document.getElementById('upload-progress');
+    const fill = document.getElementById('progress-fill');
+    const label = document.getElementById('progress-label');
+    const successBox = document.getElementById('upload-success');
+    const successNote = document.getElementById('success-note');
+
+    successBox.style.display = 'none';
+    prog.style.display = 'block';
+    fill.style.width = '0%';
+    label.textContent = 'Uploading ' + file.name + '…';
+
+    if(GOOGLE_DRIVE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL'){
+      let p = 0;
+      const iv = setInterval(()=>{
+        p += Math.random()*18+5;
+        if(p>=100){p=100;clearInterval(iv);}
+        fill.style.width = p+'%';
+        label.textContent = Math.round(p)+'% — '+file.name;
+      },120);
+      setTimeout(()=>{
+        prog.style.display='none';
+        successBox.style.display='block';
+        successNote.textContent = 'Demo Mode: Add your Apps Script Web App Endpoint URL to stream files straight to Google Drive.';
+        addThumb(URL.createObjectURL(file));
+      },1800);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const rawBase64 = reader.result.split(',')[1];
+      try {
+        await fetch(GOOGLE_DRIVE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            output: rawBase64,
+            type: file.type,
+            name: file.name
+          })
+        });
+        fill.style.width = '100%';
+        setTimeout(()=>{
+          prog.style.display='none';
+          successBox.style.display='block';
+          successNote.textContent = 'Successfully saved to your wedding album inside Google Drive! ✓';
+          addThumb(reader.result);
+        },300);
+      } catch(err) {
+        prog.style.display='none';
+        label.textContent = 'Upload failed. Please check network connection.';
+      }
+    };
+  }
+
+  function addThumb(url){
+    const grid = document.getElementById('uploaded-grid');
+    const div = document.createElement('div');
+    div.className = 'uploaded-thumb';
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = 'Uploaded Wedding photo';
+    div.appendChild(img);
+    grid.prepend(div);
+  }
+</script>
+</body>
+</html>
