@@ -269,7 +269,7 @@
     padding:0 0.5rem;
   }
   .invite-msg-panel::before{
-    content:'“';
+    content:'"';
     position:absolute;
     top:-50px; left:50%;
     transform:translateX(-50%);
@@ -714,11 +714,49 @@
     opacity:1;
     transform:rotateY(0deg);
   }
+
+  /* hide vertical vine edges once the invitation is opened (second page onward) */
+  .invite-wrap.opened .botanical-edge.left,
+  .invite-wrap.opened .botanical-edge.right{
+    display:none;
+  }
+
+  /* ── PAGE NAV (tap/swipe zones for Venue <-> Photos) ── */
+  .page-stage{
+    position:relative;
+  }
+  .page-tap-zone{
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:18%;
+    z-index:20;
+    cursor:pointer;
+  }
+  .page-tap-zone.left{ left:0; }
+  .page-tap-zone.right{ right:0; }
+  .page-dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    padding:0.75rem 0 0.25rem;
+    background:var(--warm-cream);
+  }
+  .page-dot{
+    width:6px;height:6px;
+    border-radius:50%;
+    background:rgba(185,134,11,0.3);
+    transition:background 0.2s, transform 0.2s;
+  }
+  .page-dot.active{
+    background:var(--saffron);
+    transform:scale(1.3);
+  }
 </style>
 </head>
 <body>
 <div class="petal-field" id="petal-field"></div>
-<div class="invite-wrap">
+<div class="invite-wrap" id="invite-wrap">
   <div class="botanical-corner tl"><svg viewBox="0 0 62 62"><use href="#corner-spray"/></svg></div>
   <div class="botanical-corner tr"><svg viewBox="0 0 62 62"><use href="#corner-spray"/></svg></div>
   <div class="botanical-corner bl"><svg viewBox="0 0 62 62"><use href="#corner-spray"/></svg></div>
@@ -837,7 +875,7 @@
     <p class="ganesha-motif">ॐ</p>
     <div class="couple-illustration-frame">
       <div class="couple-illustration-container">
-        <img src="https://lh3.googleusercontent.com/d/1xr2z7vb2Icbs0IuNBwCqs6CbJG0zc11g" alt="Mathu and Kabilan Illustration" class="couple-illustration">
+        <img src="https://lh3.googleusercontent.com/d/1APil7L3tFSOt0BJMW3x9pIaVOyrkIJVs" alt="Mathu and Kabilan Illustration" class="couple-illustration">
       </div>
     </div>
     <p class="hero-sub">With the blessings of the divine and the loving blessings of our beloved parents and respected elders</p>
@@ -907,85 +945,96 @@
     </button>
   </nav>
 
-  <!-- VENUE PANEL -->
-  <div id="panel-venue" class="panel venue-panel active">
-    <div class="section-title-deco"><span class="line"></span><span class="deco-flower">🌷</span><span class="line right"></span></div>
-    <h2 class="section-title">Celebrations</h2>
-    <p class="section-sub">In Madurai</p>
-    <div class="venue-cards">
+  <!-- PAGE STAGE: holds the swipeable/tappable panels -->
+  <div class="page-stage" id="page-stage">
+    <div class="page-tap-zone left" id="tap-zone-left" aria-label="Previous page"></div>
+    <div class="page-tap-zone right" id="tap-zone-right" aria-label="Next page"></div>
 
-      <div class="venue-card">
-        <div class="venue-accent temple"></div>
-        <div class="venue-body">
-          <p class="venue-type">Temple Ceremony</p>
-          <p class="venue-name">Arulmigu Park Sri Murugan Temple</p>
-          <p class="venue-address">Collector Office Rd, near Gandhi Museum,<br>Alwarpuram, Madurai, Tamil Nadu 625020</p>
-          <p class="venue-time">Muhurtham Ceremony</p>
-          <a href="https://maps.google.com/?q=Arulmigu+Park+Sri+Murugan+Temple+Madurai" target="_blank" rel="noopener noreferrer" class="map-btn temple">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="white" stroke="none"/></svg>
-            Open Location Map
-          </a>
+    <!-- VENUE PANEL -->
+    <div id="panel-venue" class="panel venue-panel active">
+      <div class="section-title-deco"><span class="line"></span><span class="deco-flower">🌷</span><span class="line right"></span></div>
+      <h2 class="section-title">Celebrations</h2>
+      <p class="section-sub">In Madurai</p>
+      <div class="venue-cards">
+
+        <div class="venue-card">
+          <div class="venue-accent temple"></div>
+          <div class="venue-body">
+            <p class="venue-type">Temple Ceremony</p>
+            <p class="venue-name">Arulmigu Park Sri Murugan Temple</p>
+            <p class="venue-address">Collector Office Rd, near Gandhi Museum,<br>Alwarpuram, Madurai, Tamil Nadu 625020</p>
+            <p class="venue-time">Muhurtham Ceremony</p>
+            <a href="https://maps.google.com/?q=Arulmigu+Park+Sri+Murugan+Temple+Madurai" target="_blank" rel="noopener noreferrer" class="map-btn temple">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="white" stroke="none"/></svg>
+              Open Location Map
+            </a>
+          </div>
         </div>
+
+        <div class="venue-card">
+          <div class="venue-accent mandap"></div>
+          <div class="venue-body">
+            <p class="venue-type">Wedding Hall Reception</p>
+            <p class="venue-name">Templecity Greenpark Mahal</p>
+            <p class="venue-address">Behind Madras Bench Madurai High Court,<br>Ulanganeri, Otthakadai, Madurai, Tamil Nadu 625023</p>
+            <p class="venue-time">Feast &amp; Celebrations</p>
+            <a href="https://maps.google.com/?q=Templecity+Greenpark+Mahal+Madurai" target="_blank" rel="noopener noreferrer" class="map-btn mandap">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="white" stroke="none"/></svg>
+              Open Wedding Hall Map
+            </a>
+          </div>
+        </div>
+
       </div>
 
-      <div class="venue-card">
-        <div class="venue-accent mandap"></div>
-        <div class="venue-body">
-          <p class="venue-type">Wedding Hall Reception</p>
-          <p class="venue-name">Templecity Greenpark Mahal</p>
-          <p class="venue-address">Behind Madras Bench Madurai High Court,<br>Ulanganeri, Otthakadai, Madurai, Tamil Nadu 625023</p>
-          <p class="venue-time">Feast &amp; Celebrations</p>
-          <a href="https://maps.google.com/?q=Templecity+Greenpark+Mahal+Madurai" target="_blank" rel="noopener noreferrer" class="map-btn mandap">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="white" stroke="none"/></svg>
-            Open Wedding Hall Map
-          </a>
-        </div>
+      <p style="text-align:center;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(61,31,10,0.4);margin-top:1.75rem;margin-bottom:0.6rem;">Counting down to forever</p>
+      <div class="countdown-strip" id="countdown-strip">
+        <div class="count-box"><span class="count-num" id="cd-days">--</span><span class="count-label">Days</span></div>
+        <div class="count-box"><span class="count-num" id="cd-hours">--</span><span class="count-label">Hours</span></div>
+        <div class="count-box"><span class="count-num" id="cd-mins">--</span><span class="count-label">Mins</span></div>
+        <div class="count-box"><span class="count-num" id="cd-secs">--</span><span class="count-label">Secs</span></div>
       </div>
-
     </div>
 
-    <p style="text-align:center;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(61,31,10,0.4);margin-top:1.75rem;margin-bottom:0.6rem;">Counting down to forever</p>
-    <div class="countdown-strip" id="countdown-strip">
-      <div class="count-box"><span class="count-num" id="cd-days">--</span><span class="count-label">Days</span></div>
-      <div class="count-box"><span class="count-num" id="cd-hours">--</span><span class="count-label">Hours</span></div>
-      <div class="count-box"><span class="count-num" id="cd-mins">--</span><span class="count-label">Mins</span></div>
-      <div class="count-box"><span class="count-num" id="cd-secs">--</span><span class="count-label">Secs</span></div>
+    <!-- PHOTOS PANEL -->
+    <div id="panel-photos" class="panel photos-panel">
+      <div class="section-title-deco"><span class="line"></span><span class="deco-flower">🌷</span><span class="line right"></span></div>
+      <h2 class="section-title">Share Your Moments</h2>
+      <p class="section-sub">Upload photos directly to our wedding album</p>
+
+      <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <p class="upload-label">Drop your photos here</p>
+        <p class="upload-hint">JPG, PNG, HEIC — up to 10 MB each</p>
+        <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('file-input').click()">Choose photos</button>
+      </div>
+      <input type="file" id="file-input" accept="image/*" multiple>
+
+      <div class="upload-progress" id="upload-progress">
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
+        <p class="progress-label" id="progress-label">Uploading…</p>
+      </div>
+
+      <div class="upload-success" id="upload-success">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#2E7D42;margin:0 auto;display:block"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+        <p class="success-text">Photo saved successfully!</p>
+        <p class="success-sub" id="success-note">Uploaded directly to the Google Drive folder.</p>
+      </div>
+
+      <div class="uploaded-grid" id="uploaded-grid"></div>
+
+      <p class="cloud-note">
+        Your submitted files will be transferred straight to the couple's private <strong>Google Drive Album</strong>.<br>
+        <span style="font-size:0.68rem;color:rgba(61,31,10,0.5)">Setup Tip: Link this client side handler to your custom Google Apps Script Web App Endpoint URL to receive file submissions directly.</span>
+      </p>
     </div>
   </div>
 
-  <!-- PHOTOS PANEL -->
-  <div id="panel-photos" class="panel photos-panel">
-    <div class="section-title-deco"><span class="line"></span><span class="deco-flower">🌷</span><span class="line right"></span></div>
-    <h2 class="section-title">Share Your Moments</h2>
-    <p class="section-sub">Upload photos directly to our wedding album</p>
-
-    <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-      <div class="upload-icon">
-        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-      </div>
-      <p class="upload-label">Drop your photos here</p>
-      <p class="upload-hint">JPG, PNG, HEIC — up to 10 MB each</p>
-      <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('file-input').click()">Choose photos</button>
-    </div>
-    <input type="file" id="file-input" accept="image/*" multiple>
-
-    <div class="upload-progress" id="upload-progress">
-      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
-      <p class="progress-label" id="progress-label">Uploading…</p>
-    </div>
-
-    <div class="upload-success" id="upload-success">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#2E7D42;margin:0 auto;display:block"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
-      <p class="success-text">Photo saved successfully!</p>
-      <p class="success-sub" id="success-note">Uploaded directly to the Google Drive folder.</p>
-    </div>
-
-    <div class="uploaded-grid" id="uploaded-grid"></div>
-
-    <p class="cloud-note">
-      Your submitted files will be transferred straight to the couple's private <strong>Google Drive Album</strong>.<br>
-      <span style="font-size:0.68rem;color:rgba(61,31,10,0.5)">Setup Tip: Link this client side handler to your custom Google Apps Script Web App Endpoint URL to receive file submissions directly.</span>
-    </p>
+  <div class="page-dots" id="page-dots">
+    <span class="page-dot active" data-page="venue"></span>
+    <span class="page-dot" data-page="photos"></span>
   </div>
 
   <div class="kolam-strip light"></div>
@@ -1003,9 +1052,10 @@
   function openInvitation(){
     const hero = document.getElementById('hero-cover');
     const rest = document.getElementById('rest-content');
+    const wrap = document.getElementById('invite-wrap');
     if(hero.classList.contains('flipped')) return;
     hero.classList.add('flipped');
-    setTimeout(()=>{ rest.classList.add('revealed'); }, 180);
+    setTimeout(()=>{ rest.classList.add('revealed'); wrap.classList.add('opened'); }, 180);
     setTimeout(()=>{
       hero.classList.add('gone');
       rest.scrollIntoView({behavior:'smooth', block:'start'});
@@ -1047,12 +1097,78 @@
 <script>
   const GOOGLE_DRIVE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyU17QNGBLrQU1cgF5PVOhTgp-ielJLEaMatpCDS_ZInzjkrzDZQjmGBI4cmTZA3PvjqA/exec';
 
+  // ── PAGE ORDER + NAVIGATION (Venue <-> Photos) ──
+  const PAGES = ['venue', 'photos'];
+  let currentPageIndex = 0;
+
   function showPanel(id, btn){
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-    document.getElementById('panel-'+id).classList.add('active');
-    btn.classList.add('active');
+    const idx = PAGES.indexOf(id);
+    if(idx === -1) return;
+    goToPage(idx);
   }
+
+  function goToPage(index){
+    if(index < 0 || index >= PAGES.length) return; // no wraparound — stop at edges
+    currentPageIndex = index;
+    const id = PAGES[index];
+
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('panel-'+id).classList.add('active');
+
+    document.querySelectorAll('.nav-tab').forEach((t,i)=>{
+      t.classList.toggle('active', i === index);
+      t.setAttribute('aria-selected', i === index ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('.page-dot').forEach((d,i)=>{
+      d.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextPage(){ goToPage(currentPageIndex + 1); }
+  function prevPage(){ goToPage(currentPageIndex - 1); }
+
+  // Tap zones: right side = next page, left side = previous page
+  document.getElementById('tap-zone-right').addEventListener('click', nextPage);
+  document.getElementById('tap-zone-left').addEventListener('click', prevPage);
+
+  // Swipe: swipe from right to left (finger moves left) = next page
+  //        swipe from left to right (finger moves right) = previous page
+  (function(){
+    const stage = document.getElementById('page-stage');
+    let startX = 0, startY = 0, tracking = false;
+    const THRESHOLD = 45;
+
+    stage.addEventListener('touchstart', e=>{
+      const t = e.touches[0];
+      startX = t.clientX; startY = t.clientY; tracking = true;
+    }, {passive:true});
+
+    stage.addEventListener('touchend', e=>{
+      if(!tracking) return;
+      tracking = false;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - startX, dy = t.clientY - startY;
+      if(Math.abs(dx) > THRESHOLD && Math.abs(dx) > Math.abs(dy)){
+        if(dx < 0){ nextPage(); }      // swipe right-to-left -> next
+        else { prevPage(); }            // swipe left-to-right -> previous
+      }
+    }, {passive:true});
+
+    // mouse drag support for desktop
+    stage.addEventListener('mousedown', e=>{
+      startX = e.clientX; startY = e.clientY; tracking = true;
+    });
+    stage.addEventListener('mouseup', e=>{
+      if(!tracking) return;
+      tracking = false;
+      const dx = e.clientX - startX, dy = e.clientY - startY;
+      if(Math.abs(dx) > THRESHOLD && Math.abs(dx) > Math.abs(dy)){
+        if(dx < 0){ nextPage(); }
+        else { prevPage(); }
+      }
+    });
+  })();
 
   const dropZone = document.getElementById('drop-zone');
   const fileInput = document.getElementById('file-input');
