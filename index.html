@@ -351,9 +351,22 @@
   .nav-tab.back-tab:hover{color:var(--border-ornate);background:rgba(0,0,0,0.25)}
 
   /* ── PANELS ── */
-  .panel{display:none;animation:fade-up 0.4s ease}
-  .panel.active{display:block}
-  @keyframes fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .page-stage{ position:relative; overflow:hidden; }
+  .panel{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transform:translateX(24px) scale(0.99);
+    transition:opacity 0.4s cubic-bezier(.25,.7,.4,1), transform 0.45s cubic-bezier(.25,.7,.4,1);
+    pointer-events:none;
+  }
+  .panel.slide-from-left{ transform:translateX(-24px) scale(0.99); }
+  .panel.active{
+    position:relative;
+    opacity:1;
+    transform:translateX(0) scale(1);
+    pointer-events:auto;
+  }
 
   /* ── VENUE PANEL ── */
   .venue-panel{
@@ -728,9 +741,6 @@
   }
 
   /* ── PAGE NAV (tap/swipe zones for Venue <-> Photos) ── */
-  .page-stage{
-    position:relative;
-  }
   .page-tap-zone{
     position:absolute;
     top:0;
@@ -881,7 +891,7 @@
     <p class="ganesha-motif">ॐ</p>
     <div class="couple-illustration-frame">
       <div class="couple-illustration-container">
-        <img src="https://lh3.googleusercontent.com/d/1xr2z7vb2Icbs0IuNBwCqs6CbJG0zc11g" alt="Mathu and Kabilan Illustration" class="couple-illustration">
+        <img src="https://lh3.googleusercontent.com/d/1APil7L3tFSOt0BJMW3x9pIaVOyrkIJVs" alt="Mathu and Kabilan Illustration" class="couple-illustration">
       </div>
     </div>
     <p class="hero-sub">With the blessings of the divine and the loving blessings of our beloved parents and respected elders</p>
@@ -1082,8 +1092,22 @@
     hero.classList.remove('gone');
     // force reflow so the un-flip transition plays
     void hero.offsetWidth;
-    setTimeout(()=>{ hero.classList.remove('flipped'); }, 50);
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{ hero.classList.remove('flipped'); });
+    });
   }
+
+  // Prevent the cover image's fade-in animation from replaying (and
+  // appearing blank) every time the hero is re-shown after going back.
+  (function(){
+    const frame = document.querySelector('.couple-illustration-frame');
+    if(!frame) return;
+    frame.addEventListener('animationend', ()=>{
+      frame.style.animation = 'none';
+      frame.style.opacity = '1';
+      frame.style.transform = 'none';
+    }, {once:true});
+  })();
 
   (function(){
     const hero = document.getElementById('hero-cover');
@@ -1132,11 +1156,19 @@
 
   function goToPage(index){
     if(index < 0 || index >= PAGES.length) return; // no wraparound — stop at edges
+    const goingBack = index < currentPageIndex;
     currentPageIndex = index;
     const id = PAGES[index];
 
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-    document.getElementById('panel-'+id).classList.add('active');
+    document.querySelectorAll('.panel').forEach(p=>{
+      p.classList.remove('active');
+      p.classList.toggle('slide-from-left', goingBack);
+    });
+    const target = document.getElementById('panel-'+id);
+    target.classList.toggle('slide-from-left', goingBack);
+    // force reflow so the entering panel starts from the correct side
+    void target.offsetWidth;
+    target.classList.add('active');
 
     document.querySelectorAll('.nav-tab[role="tab"]').forEach((t,i)=>{
       t.classList.toggle('active', i === index);
