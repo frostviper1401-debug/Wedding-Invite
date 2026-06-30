@@ -344,6 +344,11 @@
   .nav-tab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5}
   .nav-tab.active{color:var(--border-ornate);background:rgba(200,130,30,0.1);box-shadow:inset 0 -2px 0 var(--border-ornate)}
   .nav-tab:hover:not(.active){color:rgba(200,150,80,0.8)}
+  .nav-tab.back-tab{
+    color:rgba(200,150,80,0.7);
+    background:rgba(0,0,0,0.15);
+  }
+  .nav-tab.back-tab:hover{color:var(--border-ornate);background:rgba(0,0,0,0.25)}
 
   /* ── PANELS ── */
   .panel{display:none;animation:fade-up 0.4s ease}
@@ -935,6 +940,9 @@
 
   <!-- NAV -->
   <nav class="nav-tabs" role="tablist">
+    <button class="nav-tab back-tab" onclick="closeInvitation()" role="button" aria-label="Back to cover" title="Back to cover" style="flex:0 0 44px;">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
     <button class="nav-tab active" onclick="showPanel('venue',this)" role="tab" aria-selected="true">
       <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
       Venue
@@ -1062,6 +1070,20 @@
     }, 950);
   }
 
+  function closeInvitation(){
+    const hero = document.getElementById('hero-cover');
+    const rest = document.getElementById('rest-content');
+    const wrap = document.getElementById('invite-wrap');
+    if(!hero.classList.contains('flipped')) return;
+    wrap.scrollIntoView({behavior:'smooth', block:'start'});
+    rest.classList.remove('revealed');
+    wrap.classList.remove('opened');
+    hero.classList.remove('gone');
+    // force reflow so the un-flip transition plays
+    void hero.offsetWidth;
+    setTimeout(()=>{ hero.classList.remove('flipped'); }, 50);
+  }
+
   (function(){
     const hero = document.getElementById('hero-cover');
     let startX = 0, startY = 0, tracking = false;
@@ -1115,7 +1137,7 @@
     document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
     document.getElementById('panel-'+id).classList.add('active');
 
-    document.querySelectorAll('.nav-tab').forEach((t,i)=>{
+    document.querySelectorAll('.nav-tab[role="tab"]').forEach((t,i)=>{
       t.classList.toggle('active', i === index);
       t.setAttribute('aria-selected', i === index ? 'true' : 'false');
     });
@@ -1126,7 +1148,13 @@
   }
 
   function nextPage(){ goToPage(currentPageIndex + 1); }
-  function prevPage(){ goToPage(currentPageIndex - 1); }
+  function prevPage(){
+    if(currentPageIndex === 0){
+      closeInvitation();
+      return;
+    }
+    goToPage(currentPageIndex - 1);
+  }
 
   // Tap zones: right side = next page, left side = previous page
   document.getElementById('tap-zone-right').addEventListener('click', nextPage);
