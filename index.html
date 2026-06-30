@@ -713,6 +713,7 @@
     transform:rotateY(-8deg);
     transform-origin:left center;
     transition:opacity 0.6s ease, transform 0.8s cubic-bezier(.2,.8,.3,1);
+    position:relative;
   }
   .rest-content.revealed{
     max-height:none;
@@ -893,6 +894,8 @@
   </div>
 
   <div class="rest-content" id="rest-content">
+    <div class="page-tap-zone left" id="tap-zone-left" aria-label="Previous page"></div>
+    <div class="page-tap-zone right" id="tap-zone-right" aria-label="Next page"></div>
     <div class="hero-msg-block" style="background:linear-gradient(180deg,#3D1A06,#2C1206);padding:1.75rem 1.6rem 1.5rem;text-align:center;position:relative;border-top:1px solid rgba(200,150,40,0.25);border-bottom:1px solid rgba(200,150,40,0.25);">
     <div style="position:absolute;inset:8px;border:1px solid rgba(200,150,40,0.18);border-radius:10px;pointer-events:none;"></div>
     <div class="corner-flourish corner-tl" style="width:46px;height:46px;opacity:0.55"><svg viewBox="0 0 60 60"><use href="#floral-corner-motif"/></svg></div>
@@ -955,8 +958,6 @@
 
   <!-- PAGE STAGE: holds the swipeable/tappable panels -->
   <div class="page-stage" id="page-stage">
-    <div class="page-tap-zone left" id="tap-zone-left" aria-label="Previous page"></div>
-    <div class="page-tap-zone right" id="tap-zone-right" aria-label="Next page"></div>
 
     <!-- VENUE PANEL -->
     <div id="panel-venue" class="panel venue-panel active">
@@ -1163,7 +1164,7 @@
   // Swipe: swipe from right to left (finger moves left) = next page
   //        swipe from left to right (finger moves right) = previous page
   (function(){
-    const stage = document.getElementById('page-stage');
+    const stage = document.getElementById('rest-content');
     let startX = 0, startY = 0, tracking = false;
     const THRESHOLD = 45;
 
