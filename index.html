@@ -606,14 +606,60 @@
     .hero { padding: 3rem 2rem 2.5rem; }
     .couple-illustration-container { max-width: 80%; }
   }
+
+  /* ── HERO-AS-COVER PAGE FLIP ── */
+  .invite-wrap{ perspective:2200px; }
+  .hero{
+    cursor:pointer;
+    transform-origin:left center;
+    transform-style:preserve-3d;
+    transition:transform 0.95s cubic-bezier(.65,.05,.36,1), opacity 0.4s ease 0.55s;
+    position:relative;
+    z-index:5;
+    backface-visibility:hidden;
+  }
+  .hero.flipped{
+    transform:rotateY(-180deg);
+    opacity:0;
+    pointer-events:none;
+    cursor:default;
+  }
+  .hero.gone{
+    display:none;
+  }
+  .hero-tap-hint{
+    margin-top:0.9rem;
+    font-size:0.7rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:rgba(200,150,80,0.75);
+    position:relative; z-index:1;
+    animation:hint-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes hint-pulse{ 0%,100%{opacity:0.45} 50%{opacity:1} }
+  .hero.flipped .hero-tap-hint{ display:none; }
+
+  .rest-content{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transform:rotateY(-8deg);
+    transform-origin:left center;
+    transition:opacity 0.7s ease 0.45s, transform 0.85s cubic-bezier(.2,.8,.3,1) 0.45s;
+  }
+  .rest-content.revealed{
+    max-height:none;
+    opacity:1;
+    transform:rotateY(0deg);
+  }
 </style>
 </head>
 <body>
 <div class="petal-field" id="petal-field"></div>
 <div class="invite-wrap">
 
-  <!-- HERO -->
-  <div class="hero">
+  <!-- HERO (acts as the cover) -->
+  <div class="hero" id="hero-cover" onclick="openInvitation()">
     <svg width="0" height="0" style="position:absolute">
       <defs>
         <g id="floral-corner-motif">
@@ -673,7 +719,16 @@
     </div>
     <p class="hero-date">Sunday, August 23, 2026</p>
     <p class="hero-tagline">Kalyanam · Madurai</p>
+    <p class="hero-tap-hint" id="hero-tap-hint">✦ Tap to open the invitation ✦</p>
+  </div>
 
+  <div class="rest-content" id="rest-content">
+    <div class="hero-msg-block" style="background:linear-gradient(180deg,#3D1A06,#2C1206);padding:1.75rem 1rem 1.5rem;text-align:center;position:relative;border-top:1px solid rgba(200,150,40,0.25);border-bottom:1px solid rgba(200,150,40,0.25);">
+    <div style="position:absolute;inset:8px;border:1px solid rgba(200,150,40,0.18);border-radius:10px;pointer-events:none;"></div>
+    <div class="corner-flourish corner-tl" style="width:46px;height:46px;opacity:0.55"><svg viewBox="0 0 60 60"><use href="#floral-corner-motif"/></svg></div>
+    <div class="corner-flourish corner-tr" style="width:46px;height:46px;opacity:0.55"><svg viewBox="0 0 60 60"><use href="#floral-corner-motif"/></svg></div>
+    <div class="corner-flourish corner-bl" style="width:46px;height:46px;opacity:0.55"><svg viewBox="0 0 60 60"><use href="#floral-corner-motif"/></svg></div>
+    <div class="corner-flourish corner-br" style="width:46px;height:46px;opacity:0.55"><svg viewBox="0 0 60 60"><use href="#floral-corner-motif"/></svg></div>
     <div class="hero-divider">
       <span class="line"></span><span class="gem"></span><span class="line"></span>
     </div>
@@ -687,7 +742,7 @@
       Your presence, blessings, and good wishes will make this celebration truly complete.
     </p>
     <p class="invite-msg-names">With love and warm regards,<span>The Families of the Bride &amp; Groom</span></p>
-  </div>
+    </div>
 
   <!-- NAV -->
   <nav class="nav-tabs" role="tablist">
@@ -790,8 +845,22 @@
     <p class="footer-ornament">❖ ❖ ❖</p>
     <p class="footer-text">Vaazhga Valamudan · வாழ்க வளமுடன்</p>
   </div>
+  </div>
 </div>
 
+<script>
+  function openInvitation(){
+    const hero = document.getElementById('hero-cover');
+    const rest = document.getElementById('rest-content');
+    if(hero.classList.contains('flipped')) return;
+    hero.classList.add('flipped');
+    setTimeout(()=>{ rest.classList.add('revealed'); }, 250);
+    setTimeout(()=>{
+      hero.classList.add('gone');
+      rest.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 950);
+  }
+</script>
 <script>
   const GOOGLE_DRIVE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyU17QNGBLrQU1cgF5PVOhTgp-ielJLEaMatpCDS_ZInzjkrzDZQjmGBI4cmTZA3PvjqA/exec';
 
